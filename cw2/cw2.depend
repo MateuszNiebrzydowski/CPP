@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1677760505 source:d:\gruby\cw2\main.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+
