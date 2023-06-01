@@ -1,0 +1,549 @@
+//9
+
+#include <stdio.h>
+#include <stdlib.h>
+
+void wyczysc(char *napis){
+    napis[0]=0;
+}
+
+int dlugosc(char *napis){
+    int i=0;
+    while(napis[i]!=0){
+        i++;
+    }
+    return i;
+}
+
+int porownaj(char *napis1, char *napis2){
+    int i=0;
+    while(napis1[i]!=0 || napis2[i]!=0){
+        if (napis1[i]!=napis2[i]){
+            return 0;
+        }
+        i++;
+    }
+    return 1;
+}
+
+void przepisz(char *napis1, char *napis2){
+    int size=malloc(20*(sizeof(char)));
+    for(int i=0; i<size; i++){
+        napis2[i]=napis1[i];
+    }
+    printf("%s", napis2);
+}
+
+void kopiujn(char *nap1, char *nap2, int n){
+    for(int i=0; i<n; i++){
+        nap2[i]=nap1[i];
+    }
+}
+
+void sklejpizde(char *nap1, char *nap2, char *nap3){
+
+}
+void zamien(char *napis){
+
+}
+
+int main()
+{
+    //for(int i=0; i<=127; i++){
+        //printf("%d %c \n", i, i);
+    //}
+    //char *napis="negro";
+    //printf(napis);
+    //printf("\n");
+    //wyczysc(napis);
+    //printf(napis);
+    //free(napis);
+    //printf("%d", dlugosc(napis));
+    //printf("%d", porownaj("negro", "nigger"));
+   // przepisz("halapeno", "dzalapino");
+   char nap1 = "matematyka";
+   char nap2 = "informatyka";
+   kopiujn(nap1, nap2, 3);
+   printf("%s", nap2);
+
+
+    return 0;
+}
+
+
+//10
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <wchar.h>
+
+bool porownaj(char *napis1, char *napis2, int n){
+    for(int i=0; (napis1[i]!=0)&&(napis2[i]!=0); i++){
+        if(napis1[n+i]!=napis2[i]){
+            return false;
+        }
+        if(napis2[i]==0){
+            return true;
+        }
+    }
+    return false;
+}
+
+void wytnij2(char *napis1, char *napis2){
+    for(int i=0; napis2[i]!=0; i++){
+        for(int j=0; napis1[j]!=0; j++){
+            if (porownaj(napis1, napis2, i)){
+                printf("xd");
+            }
+        }
+    }
+}
+
+char *godzina(int godz, int min, int sek){
+    char *wyn=malloc(9*sizeof(char));
+    sprintf(wyn, "%02d:%02d:%02d", godz, min, sek);
+    return wyn;
+}
+
+void maleduze(char *nap){
+    for(int i=0; nap[i]!=0; i++){
+        nap[i] = toupper(nap[i]);
+        printf(nap[i]);
+    }
+}
+
+void zad18(int **t, unsigned int n, unsigned int m){
+    for (int i=0; i<n; i++){
+        for (int j=0; j<m; j++){
+            printf("%d\t", t[i][j]);
+        }
+    }
+
+}
+
+int main()
+{
+    char nap1 = "mama ma marmolade";
+    char nap2 = "tata robi karr";
+    printf(godzina(12, 18, 20));
+    maleduze(nap1);
+
+    return 0;
+}
+
+//11
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int suma(int t[][100][100]){
+    int sum = 0;
+    for (int i=0; i<100; i++){
+        for (int j=0; j<100; j++){
+            for (int k=0; k<100; k++){
+                sum += t[i][j][k];
+            }
+        }
+    }
+    return sum;
+}
+
+int max_avg(int **t, unsigned int n, unsigned int m){
+    int suma, max;
+    double wartosc;
+    for (int i=0; i<n; i++){
+        suma = 0;
+        for (int j=0; j<m; j++){
+            suma += t[i][j];
+        }
+        if (((double)suma/m>wartosc) || (i==0)){
+            max = i;
+            wartosc = (double)suma/m;
+        }
+    }
+    return max;
+}
+
+void przepisz(int **t1, int **t2, unsigned int n, unsigned int m){
+    for (int i=0; i<n; i++){
+        for (int j=0; j<m; j++){
+            t2[i][j] = t1[i][j];
+        }
+    }
+}
+
+void pom(unsigned int n, int *tab){
+    int p;
+    for (int i=0; i<n/2; i++){
+        p = tab[i];
+        tab[i] = tab[n-i-1];
+        tab[n-i-1] = p;
+    }
+}
+
+void odwroc(int **t, unsigned int n, unsigned int m){
+    for (int i=0; i<n; i++){
+        pom(n, t[i]);
+    }
+}
+
+int main()
+{
+    int tab1[2][3] = {{5, 7, 1}, {4, 8, 9}};
+    int tab2[2][3] = {{11, 8, 21}, {14, 3, 7}};
+
+    przepisz(tab1, tab2, 2, 3);
+
+    return 0;
+}
+
+
+//13
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct element {
+    int i;
+    struct element *next;
+};
+
+struct element *utworz() {
+    return NULL;
+};
+
+void wyczysc(struct element *Lista) {
+    struct element *wsk=Lista;
+    while (Lista!=NULL) {
+        Lista = Lista->next;
+        free(wsk);
+        wsk = Lista;
+    }
+}
+
+struct element *dodajk(struct element *Lista, int a) {
+    struct element *wsk;
+    if (Lista==NULL) {
+        Lista = wsk = malloc(sizeof(struct element));
+    }
+    else {
+        wsk = Lista;
+        while (wsk->next!=NULL) {
+            wsk = wsk->next;
+        }
+        wsk->next = malloc(sizeof(struct element));
+        wsk = wsk->next;
+    }
+    wsk->i = a;
+    wsk->next = NULL;
+
+    return Lista;
+};
+
+struct element *dodajw(struct element *Lista, struct element *elem, int a) {
+    struct element *wsk = malloc(sizeof(struct element));
+    wsk->i = a;
+    if (elem==NULL){
+        wsk->next = Lista;
+        Lista = wsk;
+    }
+    else {
+        wsk->next = elem->next;
+        elem->next = wsk;
+    }
+    return Lista;
+};
+
+struct element *znajdz(struct element *Lista, int a) {
+    while ((Lista!=NULL) && (Lista->i!=a)) {
+        Lista = Lista->next;
+    }
+    return Lista;
+};
+
+struct element *usun(struct element *Lista, int a) {
+    struct element *wsk, *wsk2;
+    if (Lista==NULL) {
+        return Lista;
+    }
+    wsk = Lista;
+    if (Lista->i = a) {
+        Lista = Lista->next;
+        free(wsk);
+    }
+    else {
+        while ((wsk->next!=NULL) && (wsk->next->i!=a)) {
+            wsk = wsk->next;
+        }
+        if (wsk->next!=NULL) {
+            wsk2 = wsk->next;
+            wsk->next = wsk2->next;
+            free(wsk2);
+        }
+    }
+    return Lista;
+};
+
+struct element *suma(struct element *Lista, int a) {
+    struct element *wsk;
+    wsk = Lista->i;
+
+};
+
+int minimum(struct element *Lista) {
+    int min = Lista->i;
+    while (Lista!=NULL) {
+        if (Lista->i<min) {
+            min = Lista->i;
+        }
+        Lista = Lista->next;
+    }
+    return min;
+}
+
+void wypisz(struct element *Lista) {
+    while (Lista!=NULL) {
+        printf("%d\n", Lista->i);
+        Lista = Lista->next;
+    }
+    printf("\n");
+}
+
+struct element *odwroc(struct element *Lista) {
+
+};
+
+int main()
+{
+    printf("Hello world!\n");
+
+    return 0;
+}
+
+
+//sam
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+void wyczysc(char *napis){
+    while (*napis != 0){
+        *napis = 0;
+        napis++;
+    }
+}
+
+int main(){
+    char nap[] = "Perla Harbor";
+    printf("%s\n", nap);
+    wyczysc(nap);
+    printf("%s\n", nap);
+
+    return 0;
+}
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int dlugosc(char *napis){
+    int dlugosc = 0;
+    while (*napis != 0){
+        napis++;
+        dlugosc++;
+    }
+    return dlugosc;
+}
+
+int main(){
+    char nap[] = "Perla Harbor";
+    printf("%s\n", nap);
+    printf("%d\n", dlugosc(nap));
+
+    return 0;
+}
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+void przepisz(char *nap1, char *nap2){
+    int size = malloc(sizeof(*nap2));
+    int i = 0;
+    while (nap1[i] != 0){
+        nap2[i] = nap1[i];
+        i++;
+    }
+}
+
+int main(){
+    char napis1[] = "Petla Harbor";
+    char napis2[] = "Ambasada";
+    printf("%s\n", napis1);
+    printf("%s\n", napis2);
+    przepisz(napis1, napis2);
+    printf("%s\n", napis1);
+    printf("%s\n", napis2);
+
+    return 0;
+}
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct trojkat{
+    float a, b, c;
+};
+
+float obwod(struct trojkat x){
+    float ob = x.a + x.b + x.c;
+    return ob;
+}
+
+void przepisz(struct trojkat troj1, struct trojkat *troj2){
+    *troj2 = troj1;
+}
+
+
+int main(){
+    struct trojkat t1;
+    t1.a = 0.7;
+    t1.b = 4.76;
+    t1.c = 21.37;
+
+    struct trojkat t2;
+    t2.a = 1.2;
+    t2.b = 2.3;
+    t2.c = 3.4;
+
+    //printf("%.2f\n", obwod(t1));
+    printf("%.2f %.2f %.2f\n", t1.a, t1.b, t1.c);
+    printf("%.2f %.2f %.2f\n", t2.a, t2.b, t2.c);
+
+    przepisz(t1, &t2);
+    printf("%.2f %.2f %.2f\n", t2.a, t2.b, t2.c);
+
+    return 0;
+}
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct punkt{
+    float x, y, z;
+};
+
+float odl(struct punkt *tab, int size){
+    for (int i=0; i<size; i++){
+
+    }
+}
+
+int main(){
+
+
+    return 0;
+}
+
+
+//x
+
+
+#include <stdio.h>
+#include <stdlib.h>
+ 
+void reverse_columns(int n, int m, int arr[][m])
+{
+for (int i = 0; i < n / 2; i++)
+{
+for (int j = 0; j < m; j++)
+{
+int temp = arr[i][j];
+printf("%d \n", temp);
+arr[i][j] = arr[n - i - 1][j];
+arr[n - i - 1][j] = temp;
+}
+}
+}
+ 
+void print_arr(int n, int m, int arr[][m])
+{
+for (int i = 0; i < n; i++)
+{
+for (int j = 0; j < m; j++)
+{
+printf("%d ", arr[i][j]);
+}
+printf("\n");
+}
+}
+ 
+int main()
+{
+int arr[3][4] = {{4, 2, 6, 3}, {7, 4, 2, 1}, {8, 6, 5, 3}};
+printf("Arr 1: \n");
+print_arr(3, 4, arr);
+ 
+reverse_columns(3, 4, arr);
+ 
+printf("--- After reverse --- \n");
+printf("Arr 1: \n");
+print_arr(3, 4, arr);
+ 
+return 0;
+}
+
+
+
+
+#include<stdio.h>
+#include<stdlib.h>
+ 
+void print_arr(int n, int m, int arr[][m])
+{
+    for(int i = 0; i < n; i++)
+    {
+        for(int j = 0; j < m; j++)
+        {
+            printf("%d, ", arr[i][j]);
+        }
+        printf("\n");
+    }
+}
+ 
+void move_columns_right(int n, int m, int arr[][m])
+{
+    for(int i = 0; i < n; i++) {
+      int temp1 = arr[i][m-1];
+      int temp2 = arr[i][m-2];
+      printf("temp = %d\n", temp2);
+      
+      for(int j = m-1; j > 0; j--) {
+        arr[i][j] = arr[i][j-2];
+      }
+      
+      arr[i][0] = temp2;
+      arr[i][1] = temp1;
+    }
+}
+ 
+int main()
+{
+    int arr[3][4] = {{4,2,6,3}, {7,4,2,1}, {8,6,5,3}};
+    printf("Arr 1: \n");
+    print_arr(3,4,arr);
+ 
+    move_columns_right(3,4,arr);
+ 
+    printf("--- After reverse --- \n");
+    printf("Arr 1: \n");
+    print_arr(3,4,arr);
+ 
+    return 0;
+}
+
+
